@@ -1,0 +1,17 @@
+===== Results Summary of DenseNet201 =====
+
+Accuracy: 89.76% (Paper with segmentation: 99.90%)
+Precision: 93.55% (Paper with segmentation: 99.91%)
+Sensitivity/Recall: 41.43% (Paper with segmentation: 99.90%)
+F1 Score: 57.43% (Paper with segmentation: 99.90%)
+Specificity: 99.43% (Paper with segmentation: 99.52%)
+AUC: 70.43%
+
+===== Results Summary of Vision Transformer (ViT) =====
+
+Accuracy: 90.83%
+Precision: 79.44%
+Sensitivity/Recall: 60.71%
+F1 Score: 68.83%
+Specificity: 96.86%
+AUC: 78.79%
