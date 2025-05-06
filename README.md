@@ -1,5 +1,4 @@
 
-
 ---
 
 # Disease Classification and Symptom Analysis using Deep Learning Models
@@ -9,14 +8,14 @@
 This project focuses on applying machine learning models to medical data, particularly for classifying diseases like Tuberculosis using Chest X-ray images and symptom data. The project is divided into three phases:
 
 1. **Baseline Model**: Implementation using DenseNet for Tuberculosis classification.
-2. **First Improvement**: Integration of Efficient ViT with Grad-CAM for better explainability and classification accuracy.
-3. **Final Improvement**: Combining multiple datasets and evaluating model performances.
+2. **First Improvement**: Integration of Efficient ViT with Grad-CAM for better explainability and classification accuracy, and inclusion of SHAP for feature importance analysis on the Symptoms Dataset.
+3. **Final Improvement**: Combining feature vectors from Efficient ViT and Symptoms Score Dataset, and passing them through an MLP for the final classification score.
 
 ---
 
 ## Motivation
 
-The motivation behind this project is to leverage advancements in deep learning for disease prediction. By using Grad-CAM visualizations, the project aims to improve not only the accuracy but also the interpretability of predictions, enhancing trust in the system.
+The motivation behind this project is to leverage advancements in deep learning for disease prediction. By using **Grad-CAM** visualizations for interpretability and **SHAP** for feature importance analysis, the project aims to improve not only the accuracy but also the transparency and trust in the system's predictions, particularly in a medical context.
 
 ---
 
@@ -96,6 +95,24 @@ Grad-CAM is used in both DenseNet and Efficient ViT models to provide insights i
 
 ---
 
+## Explainable AI Symptom Score (First Improvement)
+
+### **SHAP (Shapley Additive Explanations)**
+
+For the **Symptoms Dataset**, SHAP values are introduced to explain which features (symptoms) contribute the most to predicting the likelihood of Tuberculosis. SHAP is a powerful explainability method that quantifies the importance of each feature in a model’s decision-making process, providing more transparency.
+
+* **Integration**:
+
+  * SHAP was used in the **Explainable AI Symptom Score** notebook to assess the importance of different symptoms in predicting Tuberculosis. This added layer of interpretability is essential when dealing with medical datasets to understand which features are most influential.
+
+  * By applying SHAP, we gain a clearer view of how different symptoms contribute to the model’s predictions and can make informed decisions based on this data.
+
+* **Use Case**:
+
+  * SHAP is applied to the symptoms dataset to improve the interpretability of the predictions. This helps clinicians understand the correlation between symptoms and the likelihood of Tuberculosis.
+
+---
+
 ## Improvements
 
 1. **Integration of Efficient ViT**:
@@ -107,6 +124,16 @@ Grad-CAM is used in both DenseNet and Efficient ViT models to provide insights i
 
    * Grad-CAM is used to generate heatmaps that show which regions of an image contributed most to the model’s decision. This is particularly important in medical applications where model interpretability is crucial for clinical decision-making.
    * The integration of Grad-CAM helps enhance model transparency, making the system more acceptable in real-world healthcare applications.
+
+3. **SHAP for Symptom-based Predictions**:
+
+   * SHAP has been integrated into the symptom dataset model to explain the contribution of different symptoms in the prediction of Tuberculosis. This provides a more interpretable framework for healthcare professionals and can guide them in identifying the most relevant symptoms for diagnosis.
+
+---
+
+## Final Improvement
+
+The **Final Improvement** phase combines feature vectors from the **Efficient ViT** and **Symptoms Score Dataset** and passes them through an **MLP** (Multi-Layer Perceptron) for the final classification score. This combination leverages both image and symptom data for improved prediction accuracy.
 
 ---
 
@@ -128,9 +155,13 @@ Grad-CAM is used in both DenseNet and Efficient ViT models to provide insights i
 
   * Efficient ViT is fine-tuned for the task of Tuberculosis detection. The transformer model uses a reduced learning rate and is trained for 10 epochs. This model is particularly effective for small datasets as it learns global context information across the entire image.
 
+* **Final Model (MLP)**:
+
+  * The final model combines feature vectors from **Efficient ViT** and **Symptoms Score Dataset**. These combined features are passed through an **MLP** to produce the final classification result.
+
 ### **Loss Function**:
 
-* **Cross-Entropy Loss** is used for both DenseNet and Efficient ViT, which is suitable for classification tasks where the goal is to predict a probability distribution across classes.
+* **Cross-Entropy Loss** is used for both DenseNet, Efficient ViT, and the final MLP-based model, which is suitable for classification tasks where the goal is to predict a probability distribution across classes.
 
 ### **Hyperparameters**:
 
@@ -156,17 +187,20 @@ Grad-CAM is used in both DenseNet and Efficient ViT models to provide insights i
 
 1. **Baseline Model** (DenseNet):
 
-   * DenseNet achieved strong performance in identifying Tuberculosis cases with high accuracy(89%)
+   * DenseNet achieved strong performance in identifying Tuberculosis cases with high accuracy (89%).
 
-2. **First Improvement** (Efficient ViT with Ai explainability):
+2. **First Improvement** (Efficient ViT with AI explainability):
 
    * Efficient ViT improved the prediction accuracy while reducing the computational complexity of the model. The transformer-based model was able to capture more detailed patterns from the chest X-ray images.
-   * * Grad-CAM visualizations made the predictions more interpretable and transparent.
+   * **Grad-CAM visualizations** made the predictions more interpretable and transparent.
 
 3. **Final Improvement** (Combined Datasets):
 
    * Combining multiple datasets (Chest X-ray and Symptoms) resulted in improved model performance, showing the effectiveness of multi-modal learning.
-   
+
+4. **Model Comparison** (Baseline vs. Paper Metrics):
+
+   * The **output file** in the **Baseline** directory compares the metrics of our **DenseNet** implementation (`models.py`) with the original **DenseNet paper** results. The performance metrics show the efficacy of our implementation, which achieved a comparable accuracy of 89% in detecting Tuberculosis from Chest X-ray images.
 
 ---
 
@@ -179,9 +213,13 @@ To run the models and evaluate their performance, you can use the following comm
 python Baseline/models.py  # For Python script
 jupyter notebook Baseline/models.ipynb  # For Jupyter Notebook
 
-# First Improvement
+# First Improvement - Efficient ViT
 python Improvement_with_effecient_Vit/explainable_AI_radiology.py  # For Python script
 jupyter notebook Improvement_with_effecient_Vit/explainable_AI_radiology.ipynb  # For Jupyter Notebook
+
+# First Improvement - Explainable AI Symptoms Score Dataset
+python Improvement_with_effecient_Vit/explainable_AI_symptoms_Dataset.py  # For Python script
+jupyter notebook Improvement_with_effecient_Vit/explainable_AI_symptoms_Dataset.ipynb  # For Jupyter Notebook
 
 # Final Improvement
 python final_improvement/combined_dataset_notebook.py  # For Python script
@@ -192,7 +230,7 @@ jupyter notebook final_improvement/combined_dataset_notebook.ipynb  # For Jupyte
 
 ## Conclusion
 
-This project showcases the effectiveness of deep learning models like DenseNet and Efficient ViT for medical image classification. Grad-CAM visualizations enhance interpretability, making these models suitable for real-world applications in healthcare. Future work could explore additional datasets, hyperparameter optimization, and techniques like self-supervised learning.
+This project showcases the effectiveness of deep learning models like DenseNet and Efficient ViT for medical image classification. **Grad-CAM visualizations** enhance interpretability, making these models suitable for real-world applications in healthcare. **SHAP feature importance** adds further transparency to symptom-based models, improving their clinical applicability. The final improvement by combining **Efficient ViT** and **Symptoms Score Dataset** with an MLP has shown improved performance, providing a robust framework for disease classification. Future work could explore additional datasets, hyperparameter optimization, and techniques like self-supervised learning.
 
 ---
 
@@ -200,6 +238,7 @@ This project showcases the effectiveness of deep learning models like DenseNet a
 
 1. **DenseNet**:
    Huang, G., Liu, Z., Van Der Maaten, L., & Weinberger, K. Q. (2017). Densely Connected Convolutional Networks. *Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2261-2269.*
+
 
 2. **Medical X-Ray Attention (MXA) Block**:
    Ibrahim, H., & Rand, A. (2025). Beyond Conventional Transformers: The Medical X-ray Attention (MXA) Block for Improved Multi-label Diagnosis Using Knowledge Distillation. *arXiv preprint, 2504.02277.*
@@ -210,4 +249,5 @@ This project showcases the effectiveness of deep learning models like DenseNet a
    [https://doi.org/10.1186/s12880-024-01202-x](https://doi.org/10.1186/s12880-024-01202-x)
 
 ---
+
 
